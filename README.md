@@ -1,6 +1,8 @@
 # Tomatillo
 
-A macOS pomodoro timer that lives in the menu bar and enforces breaks with a fullscreen curtain.
+A vibecoded personal-use macOS pomodoro timer that lives in the menu bar and enforces breaks with a fullscreen curtain.
+
+Inspired by [Just Focus](https://getjustfocus.com), created for specific usecase.
 
 ## How it works
 
