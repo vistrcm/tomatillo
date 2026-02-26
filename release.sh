@@ -18,6 +18,10 @@ if [[ -z "$TAG" ]]; then
     echo "error: HEAD is not a git tag. Tag a release first: git tag v0.1.0"
     exit 1
 fi
+if ! git -C "$SCRIPT_DIR" tag -v "$TAG" >/dev/null 2>&1; then
+    echo "error: tag $TAG is not signed. Use: git tag -s v0.1.0"
+    exit 1
+fi
 if [[ -n "$(git -C "$SCRIPT_DIR" status --porcelain)" ]]; then
     echo "error: uncommitted changes. Commit or stash before releasing."
     exit 1
