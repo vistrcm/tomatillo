@@ -22,7 +22,7 @@ if ! git -C "$SCRIPT_DIR" tag -v "$TAG" >/dev/null 2>&1; then
     echo "error: tag $TAG is not signed. Use: git tag -s v0.1.0"
     exit 1
 fi
-TAG_MSG=$(git -C "$SCRIPT_DIR" tag -l --format='%(contents)' "$TAG" | sed '/^$/d')
+TAG_MSG=$(git -C "$SCRIPT_DIR" tag -l --format='%(subject)' "$TAG")
 if [[ -z "$TAG_MSG" ]]; then
     echo "error: tag $TAG has no annotation. Use: git tag -s v0.1.0 -m 'Release notes here'"
     exit 1
