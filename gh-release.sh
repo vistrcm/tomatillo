@@ -20,3 +20,9 @@ gh release create "$TAG" "$ZIP_PATH" \
     --notes "$NOTES
 
 **SHA256:** \`$SHA\`"
+
+VERSION="${TAG#v}"
+echo ""
+echo "==> update homebrew cask: homebrew-apps/Casks/tomatillo.rb"
+echo "    version \"$VERSION\""
+echo "    sha256 \"$SHA\""
