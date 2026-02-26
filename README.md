@@ -20,7 +20,11 @@ Inspired by [Just Focus](https://getjustfocus.com), created for specific usecase
 
 ## Install
 
-Download the latest signed and notarized `.app` from [Releases](https://github.com/vistrcm/tomatillo/releases), unzip, and drag to `/Applications`.
+```bash
+brew install --cask vistrcm/apps/tomatillo
+```
+
+Or download the latest signed and notarized `.app` from [Releases](https://github.com/vistrcm/tomatillo/releases), unzip, and drag to `/Applications`.
 
 ## Build from source
 
