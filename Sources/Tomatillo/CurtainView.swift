@@ -19,7 +19,7 @@ private func randomWallpaper() -> NSImage? {
     return NSImage(contentsOfFile: "\(wallpaperDir)/\(pick)")
 }
 
-class CurtainController {
+class CurtainController: ObservableObject {
     static let shared = CurtainController()
 
     private var windows: [NSWindow] = []
@@ -28,6 +28,7 @@ class CurtainController {
     var breakDuration: TimeInterval = 7 * 60  // 7 minutes default
     var snoozeDuration: TimeInterval = 60     // 1 minute default
     var onNext: (() -> Void)?
+    @Published var isSnoozed = false
 
     private var cachedWallpaper: NSImage?
     private var prefetchTask: URLSessionDataTask?
@@ -126,13 +127,16 @@ class CurtainController {
 
     private func snooze(wallpaper: NSImage?) {
         hide()
+        isSnoozed = true
         DispatchQueue.main.asyncAfter(deadline: .now() + snoozeDuration) { [weak self] in
+            self?.isSnoozed = false
             self?.show(wallpaper: wallpaper, snoozed: true)
         }
     }
 
     func hide() {
         breakTimer.stop()
+        isSnoozed = false
         DispatchQueue.main.async {
             NSApp.presentationOptions = []
             for w in self.windows { w.orderOut(nil) }

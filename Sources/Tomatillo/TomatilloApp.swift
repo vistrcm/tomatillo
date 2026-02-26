@@ -4,6 +4,7 @@ import SwiftUI
 struct TomatilloApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var timer = TomatilloTimer()
+    @ObservedObject private var curtain = CurtainController.shared
 
     init() {
         let t = TomatilloTimer()
@@ -34,7 +35,9 @@ struct TomatilloApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            if timer.isRunning {
+            if curtain.isSnoozed {
+                Text("Snoozed")
+            } else if timer.isRunning {
                 Button("Stop") { timer.stop() }
             } else {
                 Button("Start") {
@@ -46,7 +49,7 @@ struct TomatilloApp: App {
             Divider()
             Button("Quit") { NSApplication.shared.terminate(nil) }
         } label: {
-            Image(systemName: timer.isRunning ? "timer" : "leaf")
+            Image(systemName: timer.isRunning || curtain.isSnoozed ? "timer" : "leaf")
         }
     }
 }
