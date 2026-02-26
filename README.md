@@ -10,9 +10,7 @@ Inspired by [Just Focus](https://getjustfocus.com), created for specific usecase
 2. A 25-minute work timer starts automatically
 3. When it ends, a fullscreen curtain covers all displays with a random wallpaper
 4. A binary dot display counts down the break (hover to see minutes:seconds)
-5. When the break ends, the next work session starts automatically
-
-The loop runs hands-free: work → break → work → break → ...
+5. When the break ends, only a "Next" button remains — click it when ready to work again
 
 ## Curtain controls
 
@@ -20,7 +18,11 @@ The loop runs hands-free: work → break → work → break → ...
 - **Next** — skip remaining break, start working now
 - **Lock** — lock the Mac screen
 
-## Build & run
+## Install
+
+Download the latest signed and notarized `.app` from [Releases](https://github.com/vistrcm/tomatillo/releases), unzip, and drag to `/Applications`.
+
+## Build from source
 
 Requires macOS 26 (Tahoe). Uses Swift Package Manager, no Xcode project needed.
 
