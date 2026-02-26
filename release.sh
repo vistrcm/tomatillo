@@ -64,7 +64,7 @@ echo "    signature OK"
 
 echo "==> packaging for notarization"
 ZIP_NAME="${BINARY_NAME}-$(uname -m).zip"
-zip -r "$SCRIPT_DIR/$ZIP_NAME" "$APP_BUNDLE"
+(cd "$SCRIPT_DIR" && zip -r "$ZIP_NAME" "$BINARY_NAME.app")
 
 echo "==> submitting for notarization"
 xcrun notarytool submit "$SCRIPT_DIR/$ZIP_NAME" \
