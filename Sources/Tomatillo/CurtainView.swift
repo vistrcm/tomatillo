@@ -77,7 +77,7 @@ class CurtainController {
         NSApp.presentationOptions = kioskOptions
 
         breakTimer.duration = breakDuration
-        breakTimer.onFinished = { [weak self] in self?.onNext?() }
+        breakTimer.onFinished = nil  // don't auto-advance; UI shows "Next" button
         breakTimer.start()
 
         let wallpaper: NSImage?
@@ -212,30 +212,34 @@ struct CurtainContent: View {
         ZStack {
             WallpaperBackground(image: wallpaper)
             VStack(spacing: 32) {
-                ZStack {
-                    HStack(spacing: 6) {
-                        ForEach(Array(bits.enumerated()), id: \.offset) { _, on in
-                            Circle()
-                                .fill(on ? .white : .white.opacity(0.15))
-                                .frame(width: 18, height: 18)
-                                .shadow(color: on ? .white.opacity(0.6) : .clear, radius: 6)
+                if !breakTimer.finished {
+                    ZStack {
+                        HStack(spacing: 6) {
+                            ForEach(Array(bits.enumerated()), id: \.offset) { _, on in
+                                Circle()
+                                    .fill(on ? .white : .white.opacity(0.15))
+                                    .frame(width: 18, height: 18)
+                                    .shadow(color: on ? .white.opacity(0.6) : .clear, radius: 6)
+                            }
                         }
+                        .opacity(hovering ? 0 : 1)
+                        Text(timeText)
+                            .font(.system(size: 36, weight: .ultraLight, design: .rounded))
+                            .foregroundStyle(.white)
+                            .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
+                            .opacity(hovering ? 1 : 0)
                     }
-                    .opacity(hovering ? 0 : 1)
-                    Text(timeText)
-                        .font(.system(size: 36, weight: .ultraLight, design: .rounded))
-                        .foregroundStyle(.white)
-                        .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
-                        .opacity(hovering ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.2), value: hovering)
+                    .onHover { hovering = $0 }
                 }
-                .animation(.easeInOut(duration: 0.2), value: hovering)
-                .onHover { hovering = $0 }
                 HStack(spacing: 28) {
-                    if !snoozed {
+                    if !breakTimer.finished && !snoozed {
                         CurtainButton(icon: "moon.zzz", label: "Snooze", action: onSnooze)
                     }
                     CurtainButton(icon: "forward.fill", label: "Next", action: onNext)
-                    CurtainButton(icon: "lock.fill", label: "Lock") { lockScreen() }
+                    if !breakTimer.finished {
+                        CurtainButton(icon: "lock.fill", label: "Lock") { lockScreen() }
+                    }
                 }
             }
         }

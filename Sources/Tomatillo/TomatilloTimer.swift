@@ -3,6 +3,7 @@ import Foundation
 class TomatilloTimer: ObservableObject {
     @Published var isRunning = false
     @Published var remaining: TimeInterval = 0
+    @Published var finished = false
 
     var duration: TimeInterval = 25 * 60  // 25 minutes default
 
@@ -13,11 +14,13 @@ class TomatilloTimer: ObservableObject {
     func start() {
         remaining = duration
         isRunning = true
+        finished = false
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self else { return }
             self.remaining -= 1
             if self.remaining <= 0 {
                 self.stop()
+                self.finished = true
                 self.onFinished?()
             }
         }
