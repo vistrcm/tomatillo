@@ -4,6 +4,15 @@ A vibecoded personal-use macOS pomodoro timer that lives in the menu bar and enf
 
 Inspired by [Just Focus](https://getjustfocus.com), created for specific usecase.
 
+## Install
+
+```bash
+brew install --cask vistrcm/apps/tomatillo
+```
+
+Or download the latest signed and notarized `.app` from [Releases](https://github.com/vistrcm/tomatillo/releases), unzip, and drag to `/Applications`.
+
+
 ## How it works
 
 1. A leaf icon appears in the menu bar — no Dock icon, no Cmd+Tab entry
@@ -17,39 +26,6 @@ Inspired by [Just Focus](https://getjustfocus.com), created for specific usecase
 - **Snooze** — delay the break by 1 minute (one-time only)
 - **Next** — skip remaining break, start working now
 - **Lock** — lock the Mac screen
-
-## Install
-
-```bash
-brew install --cask vistrcm/apps/tomatillo
-```
-
-Or download the latest signed and notarized `.app` from [Releases](https://github.com/vistrcm/tomatillo/releases), unzip, and drag to `/Applications`.
-
-## Build from source
-
-Requires macOS 26 (Tahoe). Uses Swift Package Manager, no Xcode project needed.
-
-```bash
-swift build
-.build/debug/Tomatillo
-```
-
-For development with short timers:
-
-```bash
-./buildandrun.sh
-```
-
-## Configuration
-
-Set environment variables before launching:
-
-```bash
-export TOMATILLO_WORK_SECS=1500    # work session (default: 25 min)
-export TOMATILLO_BREAK_SECS=420    # break duration (default: 7 min)
-export TOMATILLO_SNOOZE_SECS=60    # snooze delay (default: 1 min)
-```
 
 ## Wallpaper
 
